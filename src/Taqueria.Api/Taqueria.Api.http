@@ -1,0 +1,161 @@
+@host = http://localhost:5082
+@token = REEMPLAZAR_CON_TOKEN
+
+### Iniciar sesión
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "nombreUsuario": "admin",
+  "password": "admin123"
+}
+
+### Usuario actual
+GET {{host}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### Mesas
+GET {{host}}/api/mesas
+Authorization: Bearer {{token}}
+
+### Nueva mesa
+POST {{host}}/api/mesas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "numero": 10,
+  "capacidad": 4
+}
+
+### Productos
+GET {{host}}/api/productos
+Authorization: Bearer {{token}}
+
+### Comandas activas
+GET {{host}}/api/comandas/activas
+Authorization: Bearer {{token}}
+
+### Abrir comanda en la mesa 1
+POST {{host}}/api/comandas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "mesaId": 1
+}
+
+### Agregar comensal a la comanda 1
+POST {{host}}/api/comandas/1/comensales
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "numero": 2
+}
+
+### Agregar tres productos al comensal 1 de la comanda 1
+POST {{host}}/api/comandas/1/comensales/1/partidas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productoId": 1,
+  "cantidad": 3
+}
+
+### Enviar comanda a cocina
+POST {{host}}/api/comandas/1/enviar-cocina
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### Retirar una partida capturada antes de enviar a cocina
+DELETE {{host}}/api/comandas/1/comensales/1/partidas/1
+Authorization: Bearer {{token}}
+
+### Tablero de cocina: pendientes y listas
+GET {{host}}/api/cocina/comandas?incluirListas=true
+Authorization: Bearer {{token}}
+
+### Liberar parcialmente una partida desde cocina
+POST {{host}}/api/cocina/comandas/1/partidas/1/entregas-parciales
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "cantidad": 2
+}
+
+### Confirmar entrega parcial a mesa como Mesero
+POST {{host}}/api/comandas/1/entregas-parciales/1/confirmar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### Enviar cuenta a Caja como Mesero
+POST {{host}}/api/comandas/1/enviar-cobro
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### Caja: ver cuentas pendientes
+GET {{host}}/api/cobros/pendientes
+Authorization: Bearer {{token}}
+
+### Caja: cobrar la cuenta completa por efectivo
+POST {{host}}/api/cobros/comandas/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "metodoPago": "Efectivo"
+}
+
+### Reporte de ventas del día para Caja/Administrador
+GET {{host}}/api/reportes/ventas-dia?fecha=2026-05-31&desfaseHorarioMinutos=360
+Authorization: Bearer {{token}}
+
+### Descargar corte diario Excel
+GET {{host}}/api/reportes/ventas-dia/excel?fecha=2026-05-31&desfaseHorarioMinutos=360
+Authorization: Bearer {{token}}
+
+### Cambiar contraseña temporal obligatoria
+POST {{host}}/api/auth/cambiar-password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "passwordActual": "admin123",
+  "nuevoPassword": "AdminSegura123",
+  "confirmarPassword": "AdminSegura123"
+}
+
+### Usuarios: consultar accesos como Administrador
+GET {{host}}/api/usuarios
+Authorization: Bearer {{token}}
+
+### Usuarios: crear acceso temporal
+POST {{host}}/api/usuarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Mesero Turno Noche",
+  "nombreUsuario": "mesero.noche",
+  "passwordTemporal": "Temporal123",
+  "confirmarPasswordTemporal": "Temporal123",
+  "rol": "Mesero"
+}
+
+### Cancelar comanda sin preparación
+POST {{host}}/api/comandas/1/cancelar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "motivo": "Cliente se retiró antes de preparar la orden."
+}

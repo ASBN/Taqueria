@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Taqueria.Api/Taqueria.Api.csproj" />
+    <Project Path="src/Taqueria.Application/Taqueria.Application.csproj" />
+    <Project Path="src/Taqueria.Domain/Taqueria.Domain.csproj" />
+    <Project Path="src/Taqueria.Infrastructure/Taqueria.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Taqueria.Api.IntegrationTests/Taqueria.Api.IntegrationTests.csproj" />
+    <Project Path="tests/Taqueria.Application.Tests/Taqueria.Application.Tests.csproj" />
+    <Project Path="tests/Taqueria.Domain.Tests/Taqueria.Domain.Tests.csproj" />
+  </Folder>
+</Solution>

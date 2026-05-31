@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/.vs/
+**/.idea/
+*.user
+*.suo
+src/Taqueria.Api/App_Data/*.db
+src/Taqueria.Api/App_Data/*.db-shm
+src/Taqueria.Api/App_Data/*.db-wal
+.env
